@@ -43,11 +43,10 @@ class StoneFinder :
             .translation(CAMERA_FORWARD_DISPLACEMENT.toFloat(), CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT.toFloat())
             .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate))
 
-    var StoneToRobot:OpenGLMatrix= OpenGLMatrix()
-    fun getLocation():ArrayList<Double>?= if ((stoneTarget.getListener() as VuforiaTrackableDefaultListener).isVisible) (with((stoneTarget.getListener() as VuforiaTrackableDefaultListener).updatedRobotLocation.inverted()){arrayListOf(getTranslation().get(0).toDouble(),getTranslation().get(1).toDouble(),Orientation.getOrientation(this, EXTRINSIC, XYZ, RADIANS).thirdAngle.toDouble())})
-    else null
+    //var StoneToRobot:OpenGLMatrix= OpenGLMatrix()
+    //fun getLocation():ArrayList<Double>?= if ((stoneTarget.getListener() as VuforiaTrackableDefaultListener).isVisible) (with((stoneTarget.getListener() as VuforiaTrackableDefaultListener).updatedRobotLocation.inverted()){arrayListOf(getTranslation().get(0).toDouble(),getTranslation().get(1).toDouble(),Orientation.getOrientation(this, EXTRINSIC, XYZ, RADIANS).thirdAngle.toDouble())}) else null
 
-
+    var location:ArrayList<Double>?=null
 
     override fun init(opMode: OpModeWithRobot<Robot>) {
         webcamName = opMode.hardwareMap.get(WebcamName::class.java, "Webcam 1")
@@ -68,7 +67,8 @@ class StoneFinder :
     }
 
     override fun run() {
-        //StoneToRobot= (stoneTarget.getListener() as VuforiaTrackableDefaultListener).updatedRobotLocation.inverted()
+
+        location=if ((stoneTarget.getListener() as VuforiaTrackableDefaultListener).isVisible) (with((stoneTarget.getListener() as VuforiaTrackableDefaultListener).updatedRobotLocation.inverted()){arrayListOf(getTranslation().get(0).toDouble(),getTranslation().get(1).toDouble(),Orientation.getOrientation(this, EXTRINSIC, XYZ, RADIANS).thirdAngle.toDouble())}) else null
     }
 
     override fun toString(): String {
