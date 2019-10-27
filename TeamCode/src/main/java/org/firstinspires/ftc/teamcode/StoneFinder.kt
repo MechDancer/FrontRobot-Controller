@@ -44,7 +44,8 @@ class StoneFinder :
             .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate))
 
     var StoneToRobot:OpenGLMatrix= OpenGLMatrix()
-    fun getLocation()= arrayListOf(StoneToRobot.getTranslation().get(0),robotFromCamera.getTranslation().get(1),Orientation.getOrientation(robotFromCamera, EXTRINSIC, XYZ, RADIANS))
+    fun getLocation():ArrayList<Double>?= if ((stoneTarget.getListener() as VuforiaTrackableDefaultListener).isVisible) (with((stoneTarget.getListener() as VuforiaTrackableDefaultListener).updatedRobotLocation.inverted()){arrayListOf(getTranslation().get(0).toDouble(),getTranslation().get(1).toDouble(),Orientation.getOrientation(this, EXTRINSIC, XYZ, RADIANS).thirdAngle.toDouble())})
+    else null
 
 
 
@@ -67,7 +68,7 @@ class StoneFinder :
     }
 
     override fun run() {
-        StoneToRobot= (stoneTarget.getListener() as VuforiaTrackableDefaultListener).updatedRobotLocation.inverted()
+        //StoneToRobot= (stoneTarget.getListener() as VuforiaTrackableDefaultListener).updatedRobotLocation.inverted()
     }
 
     override fun toString(): String {
