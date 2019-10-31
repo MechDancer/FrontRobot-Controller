@@ -332,8 +332,8 @@ public class FtcRobotControllerActivity extends Activity
     if (permissionsValidated) {
       ClassManager.getInstance().setOnBotJavaClassHelper(new OnBotJavaHelperImpl());
       ClassManagerFactory.registerFilters();
-      ClassManager.getInstance().registerFilter(MechDancerOpModeRegister.INSTANCE);
-      ClassManager.getInstance().registerFilter(ClassFilterProvider.INSTANCE);
+	    ClassManager.getInstance().registerFilter(MechDancerOpModeRegister.INSTANCE);
+	    ClassManager.getInstance().registerFilter(ClassFilterProvider.INSTANCE);
       ClassManagerFactory.processAllClasses();
     }
 
@@ -711,7 +711,7 @@ public class FtcRobotControllerActivity extends Activity
   }
 
   protected OpModeRegister createOpModeRegister() {
-    return MechDancerOpModeRegister.INSTANCE::register;
+	  return MechDancerOpModeRegister.INSTANCE::register;
   }
 
   private void shutdownRobot() {
