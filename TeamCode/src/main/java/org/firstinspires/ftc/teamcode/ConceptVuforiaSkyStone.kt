@@ -19,8 +19,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefau
 class ConceptVuforiaSkyStone : LinearOpMode() {
 
     // Class Members
-    private var lastLocation: OpenGLMatrix? = null
-    private var vuforia: VuforiaLocalizer? = null
+    private var lastLocation: OpenGLMatrix = OpenGLMatrix()
+    private lateinit var vuforia: VuforiaLocalizer
     private var targetVisible = false
 
     override fun runOpMode() {
@@ -33,7 +33,7 @@ class ConceptVuforiaSkyStone : LinearOpMode() {
 
         vuforia = ClassFactory.getInstance().createVuforia(parameters)
 
-        val targetsSkyStone = this.vuforia!!.loadTrackablesFromAsset("Skystone")
+        val targetsSkyStone = vuforia.loadTrackablesFromAsset("Skystone")
 
         val stoneTarget = targetsSkyStone[0]
         stoneTarget.name = "Stone Target"
@@ -90,7 +90,7 @@ class ConceptVuforiaSkyStone : LinearOpMode() {
             // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
                 // express position (translation) of robot in inches.
-                val translation = lastLocation!!.translation
+                val translation = lastLocation.translation
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                     translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch)
 

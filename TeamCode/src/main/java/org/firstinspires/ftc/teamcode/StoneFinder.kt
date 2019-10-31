@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.mmPerInc
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables
 import org.mechdancer.ftclib.core.opmode.OpModeWithRobot
 import org.mechdancer.ftclib.core.structure.MonomericStructure
 import org.mechdancer.ftclib.core.structure.composite.Robot
@@ -28,6 +29,7 @@ class StoneFinder :
 
     private lateinit var stoneTargetListener: VuforiaTrackableDefaultListener
 
+    private lateinit var trackables: VuforiaTrackables
 
     companion object {
         private const val CAMERA_FORWARD_DISPLACEMENT = 4.0f * mmPerInch    // eg: Camera is 4 Inches in front of robot-center
@@ -38,7 +40,7 @@ class StoneFinder :
         private const val PHONE_Y_ROTATE = 0f
         private const val PHONE_Z_ROTATE = 0f
 
-        private val VUFORIA_KEY = "\n" +
+        private val VUFORIA_KEY =
             "AWcj0SH/////AAAAGc51QoZ0Lkf9qsnetlRxwNkVS4T/x5I75ZeQ5CmkxUGRVjxzxR/thQq0i7jaeZX1ZF9cnEsO+NSRhOye+9IQSqYq6TGgc8+iF75ERZAZBKABUd/a6H3ZwBIudWhNdrypQ4r41XjVdb8iBZaTDOqkjw+Zed1ZUkU3dv4HfN/c1nS3/AJLYrgd4zlopvUExBr6ynECCyjgmPXQCcTH6SZ6pph2ZiJXtIBTF/ZaalMXqd9gPMgj9dAy3Hb+Tz26AQFDQevRStLdWZHLdDwdM/a6da7/upBkcMA1dGgm9lQU1UOhneym92qVc3o/eBCKmJ20XehLT2rzbHNNrpHcAqWBSd1d5XW2b8PJIkNRTazIsGCs"
 
     }
@@ -59,14 +61,14 @@ class StoneFinder :
             parameters.vuforiaLicenseKey = VUFORIA_KEY
             parameters.cameraName = webcamName
             val vuforia = ClassFactory.getInstance().createVuforia(parameters)
-            val targetsSkyStone = vuforia.loadTrackablesFromAsset("Skystone")
-            val stoneTarget = targetsSkyStone[0]
+            trackables = vuforia.loadTrackablesFromAsset("Skystone")
+            val stoneTarget = trackables[0]
             stoneTarget.name = "Stone Target"
             stoneTarget.location = OpenGLMatrix
                 .translation(0f, 0f, 0f)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90f, 0f, 0f))
             stoneTargetListener = (stoneTarget.listener as VuforiaTrackableDefaultListener).also { it.setPhoneInformation(robotFromCamera, parameters.cameraDirection) }
-            targetsSkyStone.activate()
+            trackables.activate()
         }
     }
 
@@ -83,7 +85,7 @@ class StoneFinder :
 
 
     override fun stop() {
-        //TODO deactive
+        trackables.deactivate()
     }
 
     override fun toString(): String = javaClass.simpleName
