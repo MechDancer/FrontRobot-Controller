@@ -30,11 +30,6 @@ open class Robot(
 
     private val availableDevices: MutableMap<Device, HardwareDevice> = mutableMapOf()
 
-    var robotCallback: RobotCallback<Robot>? = null
-        set(value) {
-            value?.hookOpMode(this)
-            field = value
-        }
 
     var initialized = false
         private set
@@ -115,6 +110,7 @@ open class Robot(
 
         val namedDevices = devices.associateBy { it.name }
 
+        logger.info("Finding hardware devices.")
         namedDevices.mapNotNull { (name, device) ->
             runCatching {
                 hardwareMap[name]
@@ -126,7 +122,6 @@ open class Robot(
 
         //Call init
         components.mapNotNull { it as? RobotComponent }.forEach(RobotComponent::init)
-        robotCallback?.init(this)
 
         //Initialize sensor accessors
         initSensors()
@@ -186,7 +181,6 @@ open class Robot(
     override fun close() {
         if (!initialized) return
         components.mapNotNull { it as? RobotComponent }.forEach(RobotComponent::stop)
-        robotCallback?.stop(this)
         availableDevices.clear()
         breakAllConnections()
         initialized = false
