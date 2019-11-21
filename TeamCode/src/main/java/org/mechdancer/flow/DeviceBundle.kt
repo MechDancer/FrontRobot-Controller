@@ -4,8 +4,8 @@ import org.mechdancer.dependency.NamedComponent
 import org.mechdancer.flow.struct.Device
 import org.mechdancer.flow.struct.effector.ContinuousServo
 import org.mechdancer.flow.struct.effector.Motor
-import org.mechdancer.flow.struct.effector.MotorWithEncoder
 import org.mechdancer.flow.struct.effector.Servo
+import org.mechdancer.flow.struct.preset.MotorWithEncoder
 import org.mechdancer.flow.struct.sensor.ColorSensor
 import org.mechdancer.flow.struct.sensor.Encoder
 import org.mechdancer.flow.struct.sensor.Gyro

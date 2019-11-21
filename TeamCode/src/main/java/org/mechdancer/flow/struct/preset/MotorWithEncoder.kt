@@ -1,8 +1,11 @@
-package org.mechdancer.flow.struct.effector
+package org.mechdancer.flow.struct.preset
 
 import org.mechdancer.dataflow.core.minus
 import org.mechdancer.dependency.*
 import org.mechdancer.flow.struct.RobotComponent
+import org.mechdancer.flow.struct.effector.Motor
+import org.mechdancer.flow.struct.effector.OutputDriver
+import org.mechdancer.flow.struct.effector.PositionOutput
 import org.mechdancer.flow.struct.sensor.Encoder
 
 /**
