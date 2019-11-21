@@ -1,5 +1,6 @@
 package org.mechdancer.flow.config.component
 
+import org.mechdancer.flow.config.RobotConfigMarker
 import org.mechdancer.flow.config.create
 
 class RobotConfig(private val block: RobotConfig.() -> Unit) : HardwareConfigDsl {
@@ -11,7 +12,7 @@ class RobotConfig(private val block: RobotConfig.() -> Unit) : HardwareConfigDsl
      *
      * @param block Rev 设备配置 DSL 建造者
      */
-    fun lynxUsbDevice(block: LynxUsbDeviceConfig.() -> Unit) {
+    fun lynxUsbDevice(block: (@RobotConfigMarker LynxUsbDeviceConfig).() -> Unit) {
         builder.append(LynxUsbDeviceConfig(block).create())
     }
 

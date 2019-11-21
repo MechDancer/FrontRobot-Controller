@@ -14,4 +14,8 @@ internal fun HardwareConfigDsl.create(): String {
  *
  * @param block 机器人配置 DSL 建造者
  */
-fun robotConfig(block: RobotConfig.() -> Unit) = RobotConfig(block).create()
+fun robotConfig(block: (@RobotConfigMarker RobotConfig).() -> Unit) = RobotConfig(block).create()
+
+@DslMarker
+@Target(AnnotationTarget.TYPE)
+annotation class RobotConfigMarker

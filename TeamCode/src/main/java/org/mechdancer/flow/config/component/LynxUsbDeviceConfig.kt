@@ -1,5 +1,6 @@
 package org.mechdancer.flow.config.component
 
+import org.mechdancer.flow.config.RobotConfigMarker
 import org.mechdancer.flow.config.create
 
 /**
@@ -29,7 +30,7 @@ class LynxUsbDeviceConfig(private val block: LynxUsbDeviceConfig.() -> Unit) : H
      * @param port 模块端口
      * @param block Rev 模块配置 DSL 建造者
      */
-    fun lynxModule(name: String, port: Int, block: LynxModuleConfig.() -> Unit) {
+    fun lynxModule(name: String, port: Int, block: (@RobotConfigMarker LynxModuleConfig).() -> Unit) {
         builder.append(LynxModuleConfig(name, port, block).create())
     }
 

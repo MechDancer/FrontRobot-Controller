@@ -12,7 +12,6 @@ class Robobo : Robot({
         motor("RB")
     }
 
-
 }) {
 
     val chassis = MecanumChassis().attach()
