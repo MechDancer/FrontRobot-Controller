@@ -12,8 +12,14 @@ class Robobo : Robot({
         motor("RB")
     }
 
+    "collector"{
+        motor("am")
+    }
+
+
 }) {
 
     val chassis = MecanumChassis().attach()
+    val collector = Collector().attach()
 
 }

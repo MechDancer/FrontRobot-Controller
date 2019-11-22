@@ -1,9 +1,6 @@
 package org.mechdancer.flow.struct
 
-import org.mechdancer.dependency.Component
-import org.mechdancer.dependency.DependencyManager
-import org.mechdancer.dependency.Dependent
-import org.mechdancer.dependency.UniqueComponent
+import org.mechdancer.dependency.*
 
 abstract class UniqueRobotComponent<T : UniqueRobotComponent<T>>
     : UniqueComponent<T>(), RobotComponent, Dependent {
@@ -13,4 +10,7 @@ abstract class UniqueRobotComponent<T : UniqueRobotComponent<T>>
     override fun toString(): String = javaClass.simpleName.toLowerCase()
 
     fun String.joinPrefix() = "${this@UniqueRobotComponent}.$this"
+
+    inline fun <reified T : NamedComponent<T>> DependencyManager.find(name: String) =
+        must<T>(name.joinPrefix())
 }

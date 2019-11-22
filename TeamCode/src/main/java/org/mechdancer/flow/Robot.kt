@@ -106,7 +106,7 @@ open class Robot(deviceConfig: DeviceBundle.() -> Unit = {}) : DynamicScope(), C
 
 
     /**
-     * Init use existing id
+     * Init the robot
      */
     fun init(hardwareMap: HardwareMap) {
 

@@ -18,6 +18,13 @@ class RoboboRemote : HostedOpMode<Robobo>() {
             )
         } - chassis.descartesControl
 
+
+        with(master) {
+            leftTrigger.pressing - { Collector.State.Collecting } - collector.controller
+            leftTrigger.pressing - { Collector.State.Collecting } - collector.controller
+            rightTrigger.releasing - { Collector.State.Spiting } - collector.controller
+            rightTrigger.releasing - { Collector.State.Stop } - collector.controller
+        }
     }
 
 }
