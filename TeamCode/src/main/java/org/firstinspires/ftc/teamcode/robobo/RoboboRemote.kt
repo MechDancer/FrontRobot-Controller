@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.robobo
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.mechdancer.dataflow.core.minus
 import org.mechdancer.flow.HostedOpMode
 import org.mechdancer.flow.struct.preset.chassis.MecanumChassis
 
 @TeleOp
+@Disabled
 class RoboboRemote : HostedOpMode<Robobo>() {
 
     override fun Robobo.config() {

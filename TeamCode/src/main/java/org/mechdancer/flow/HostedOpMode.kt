@@ -9,16 +9,16 @@ abstract class HostedOpMode<T : Robot> : OpMode() {
 
     abstract fun T.config()
 
-    override fun init() {
+    final override fun init() {
         robot.init(hardwareMap)
         robot.config()
     }
 
-    override fun loop() {
+    final override fun loop() {
         robot.update(gamepad1, gamepad2)
     }
 
-    override fun stop() {
+    final override fun stop() {
         robot.close()
     }
 

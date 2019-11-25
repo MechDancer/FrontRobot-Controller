@@ -47,6 +47,8 @@ open class Robot(deviceConfig: DeviceBundle.() -> Unit = {}) : DynamicScope(), C
 
     fun <T : Component> T.attach() = apply { this@Robot.setup(this) }
 
+    val eventLoopDriver = EventLoopDriver().attach()
+
     fun update(gamepad1: com.qualcomm.robotcore.hardware.Gamepad, gamepad2: com.qualcomm.robotcore.hardware.Gamepad) {
         period = System.currentTimeMillis() - last
         encoders.forEach { (hardware, device) ->
@@ -78,6 +80,7 @@ open class Robot(deviceConfig: DeviceBundle.() -> Unit = {}) : DynamicScope(), C
         }
         master.update(GamepadData.fromFTC(gamepad1))
         helper.update(GamepadData.fromFTC(gamepad2))
+        eventLoopDriver.update()
         last = System.currentTimeMillis()
     }
 
