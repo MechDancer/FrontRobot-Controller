@@ -18,7 +18,7 @@ import org.mechdancer.ftclib.util.AutoCallable
 import org.mechdancer.ftclib.util.OpModeLifecycle
 
 
-class StoneFinder(private val useWebcam: Boolean = true) :
+class StoneFinder(private val useWebcam: Boolean = false) :
     MonomericStructure("stoneFinder"),
     AutoCallable,
     OpModeLifecycle.Initialize<Robot>,
@@ -37,12 +37,11 @@ class StoneFinder(private val useWebcam: Boolean = true) :
     }
 
     private val robotFromCamera: OpenGLMatrix = OpenGLMatrix
-        .translation(0f, 0f, 0f)
-        .let {
-            //            if (useWebcam)
-            it.multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0f, 0f, 0f))
-//            else
-//                it.multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90f, 0f, -90f))
+        .translation(0f, 0f, 0f).let {
+            if (useWebcam)
+                it.multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90f, 0f, 90f))
+            else
+                it.multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90f, 0f, -90f))
         }
 
     var location: DoubleArray? = null
@@ -63,21 +62,24 @@ class StoneFinder(private val useWebcam: Boolean = true) :
             val stoneTarget = trackables[0]
             stoneTarget.name = "Stone Target"
             stoneTarget.location = OpenGLMatrix
-                .translation(0f, 0f, 0f)
-                .let {
-                    //                    if (useWebcam)
-                    it.multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0f, 0f, 0f))
-//                    else
-//                        it.multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90f, 0f, 0f))
-                }
-            stoneTargetListener = (stoneTarget.listener as VuforiaTrackableDefaultListener).also { it.setPhoneInformation(robotFromCamera, parameters.cameraDirection) }
+                //
+                .translation(0f, 0f, 0f).multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90f, 0f, -90f))
+
+            stoneTargetListener = (stoneTarget.listener as VuforiaTrackableDefaultListener).also {
+                if (!useWebcam)
+                    it.setPhoneInformation(robotFromCamera, parameters.cameraDirection)
+            }
             trackables.activate()
         }
     }
 
     override fun run() {
         location =
-            stoneTargetListener.robotLocation?.inverted()?.run {
+            stoneTargetListener.robotLocation?.inverted()?.let {
+                if (useWebcam)
+                    robotFromCamera.multiplied(it)
+                else it
+            }?.run {
                 val o = Orientation.getOrientation(this, EXTRINSIC, XYZ, RADIANS)
                 doubleArrayOf(
                     translation.get(0).toDouble(),
