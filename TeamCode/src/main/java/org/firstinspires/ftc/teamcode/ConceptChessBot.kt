@@ -7,7 +7,12 @@ import org.mechdancer.ftclib.core.structure.composite.chassis.Mecanum
 import org.mechdancer.ftclib.core.structure.injector.Inject
 import org.mechdancer.ftclib.gamepad.Gamepad
 
-@Disabled
+
+/**
+ * mechdancerlib 示例程序
+ *
+ * 机器人定义
+ */
 class ChessBot : Robot("chess_bot", false, Mecanum(
     enable = true
 )) {
@@ -17,6 +22,7 @@ class ChessBot : Robot("chess_bot", false, Mecanum(
 
 }
 
+@Disabled
 class ChessBotOpMode : RemoteControlOpMode<ChessBot>() {
     override fun initTask() {
 
