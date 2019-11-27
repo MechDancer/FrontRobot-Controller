@@ -14,7 +14,7 @@ import org.mechdancer.geometry.angle.unaryMinus
 import kotlin.math.abs
 import kotlin.math.sign
 
-abstract class AsyncChassisAction(
+abstract class AsyncChassisAction<T : LocatableRobot>(
     private val pidX: PID = PID.zero(),
     private val pidY: PID = PID.zero(),
     private val pidW: PID = PID.zero(),
@@ -23,7 +23,7 @@ abstract class AsyncChassisAction(
     private val retimilY: Retimil = Retimil(Double.MAX_VALUE, .0, .0, .0),
     private val retimilW: Retimil = Retimil(Double.MAX_VALUE, .0, .0, .0)
 
-) : BaseOpModeAsync<LocatableRobot>() {
+) : BaseOpModeAsync<T>() {
 
     final override val initLoopMachine = LinearStateMachine()
 
