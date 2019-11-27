@@ -8,10 +8,11 @@ import org.mechdancer.flow.HostedOpMode
 class FinderOpMode : HostedOpMode<FinderRobot>() {
 
     override fun FinderRobot.config() {
-        eventLoopDriver linkTo {
-            telemetry.addData("Location", stoneFinder.currentLocation.joinToString())
-        }
-    }
 
+        eventLoopDriver linkTo {
+            telemetry.addData("Location", stoneFinder.idealTargetOnRobot)
+        }
+
+    }
 
 }

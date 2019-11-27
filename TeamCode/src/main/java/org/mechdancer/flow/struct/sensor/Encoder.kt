@@ -16,6 +16,8 @@ class Encoder(name: String, cpr: Double = 360.0) : NamedComponent<Encoder>(name)
 
     private val ratio = 2 * PI / cpr
 
+    private var offset = .0
+
     /** Current position */
     val position get() = value.get().position
 
@@ -25,12 +27,16 @@ class Encoder(name: String, cpr: Double = 360.0) : NamedComponent<Encoder>(name)
     override val updated: ISource<EncoderData> = broadcast()
 
     override fun update(new: EncoderData) {
-        val transformed = EncoderData(position * ratio, speed * ratio)
+        val transformed = EncoderData((new.position - offset) * ratio, new.speed * ratio)
         if (value.getAndSet(transformed) != transformed)
             updated post transformed
     }
 
     override fun toString(): String = "${javaClass.simpleName}[$name]"
+
+    override fun reset() {
+        offset = position / ratio
+    }
 
     companion object CPR {
         const val NeveRest3_7 = 44.4
