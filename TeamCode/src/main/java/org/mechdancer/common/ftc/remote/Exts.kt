@@ -1,5 +1,6 @@
 package org.mechdancer.common.ftc.remote
 
+import org.mechdancer.common.ftc.Retimil
 import org.mechdancer.dependency.Component
 import org.mechdancer.dependency.DynamicScope
 import org.mechdancer.dependency.plusAssign
@@ -41,6 +42,23 @@ fun RemoteHub.sendDouble(double: Double, id: Int) =
         DataOutputStream(it).run {
             writeInt(id)
             writeDouble(double)
+            it.toByteArray()
+        }
+    })
+
+fun RemoteHub.sendRetimil(retimil: Retimil, id: Int, reset: Boolean = true) =
+    broadcast(object : Command {
+        override val id: Byte = 10
+    }, ByteArrayOutputStream().let {
+        DataOutputStream(it).run {
+            with(retimil) {
+                writeInt(id)
+                writeDouble(x0)
+                writeDouble(y0)
+                writeDouble(x1)
+                writeDouble(y1)
+                writeBoolean(reset)
+            }
             it.toByteArray()
         }
     })
