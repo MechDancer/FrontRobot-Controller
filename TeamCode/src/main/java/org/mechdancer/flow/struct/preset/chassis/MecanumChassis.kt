@@ -38,5 +38,9 @@ open class MecanumChassis(name: String = "chassis")
         }
     }
 
-    data class Descartes(val x: Double, val y: Double, val w: Double)
+    data class Descartes(val x: Double, val y: Double, val w: Double) {
+        companion object {
+            fun zero() = Descartes(.0, .0, .0)
+        }
+    }
 }

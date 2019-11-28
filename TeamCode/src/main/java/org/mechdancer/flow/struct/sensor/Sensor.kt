@@ -15,4 +15,7 @@ interface Sensor<T> : Device {
 
     /** Invoke to update the value */
     fun update(new: T)
+
+    fun reset() {}
+
 }
