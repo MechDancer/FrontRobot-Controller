@@ -1,0 +1,28 @@
+package org.mechdancer.common.ftc.remote
+
+import org.mechdancer.remote.modules.multicast.multicastListener
+import org.mechdancer.remote.presets.RemoteHub
+import org.mechdancer.remote.resources.Command
+import java.io.DataInputStream
+
+class RemoteDouble(private val id: Int, remote: RemoteHub) {
+    companion object : Command {
+        override val id: Byte = 11
+    }
+
+    var core = .0
+
+    var onNewData = { _: Double -> }
+
+    init {
+        multicastListener(RemoteDouble) { _, _, payload ->
+            DataInputStream(payload.inputStream()).apply {
+                remote.components
+                if (readInt() != id) return@multicastListener
+                core = readDouble()
+                onNewData(core)
+            }
+        }.also { remote.addDependency(it) }
+    }
+
+}

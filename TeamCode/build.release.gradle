@@ -8,4 +8,10 @@ dependencies {
     implementation (name: 'tensorflow-lite-0.0.0-nightly', ext:'aar')
     implementation(name: 'mechdancerlib', ext: 'aar')
     implementation 'org.mechdancer:linearalgebra:0.2.6-dev-2'
+    implementation ("org.mechdancer:remote:0.2.1-dev-13"){
+        exclude group: 'org.slf4j'
+    }
+    implementation("org.mechdancer:dependency:0.1.0-rc-3"){
+//        exclude group: 'org.slf4j'
+    }
 }
