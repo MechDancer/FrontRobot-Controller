@@ -44,7 +44,7 @@ class MecanumLocator(
             enable = true
         }
         encoder("RF") {
-            cpr = -MotorWithEncoder.Neverest40
+            cpr = MotorWithEncoder.Neverest40
             enable = true
         }
         encoder("RB") {
