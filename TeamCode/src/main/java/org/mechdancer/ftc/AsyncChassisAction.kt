@@ -147,7 +147,7 @@ abstract class AsyncChassisAction<T : LocatableRobot>(
 
         init {
             add {
-                error = Pose2D(target.p - robot.locator.pose.p, target.d.rotate(-robot.locator.pose.d))
+                error = target minusState robot.locator.pose
                 output = calculatePIDPowers(error)
                 robot.chassis.descartes {
                     output.x.takeIf { it != .0 || it != -.0 }?.let { x = it }

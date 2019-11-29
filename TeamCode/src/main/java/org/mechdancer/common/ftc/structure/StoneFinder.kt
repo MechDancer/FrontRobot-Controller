@@ -93,8 +93,8 @@ class StoneFinder(
             }?.run {
                 val o = Orientation.getOrientation(this, EXTRINSIC, XYZ, RADIANS)
                 Pose2D.pose(
-                    translation.get(0).toDouble(),
-                    translation.get(1).toDouble(),
+                    translation.get(0).toDouble() * RATIO,
+                    translation.get(1).toDouble() * RATIO,
                     o.thirdAngle.toDouble()
                 )
             }
@@ -111,6 +111,7 @@ class StoneFinder(
 
 
     companion object {
+        private const val RATIO = .6 / 616
         private const val VUFORIA_KEY =
             "ARUMLrz/////AAABmQJWUPMdxk0js1idkM5EVUAL7NbQ4tLNle+XIBvb776/3jHQz3ZPTqrLUvBD784620pjFp340UGGiVGQrPC+UOSFy3Bd2YXpiLXyD5/N0dRkAi99xPXGtNW9qiAA7gK5fWaDc4xHNEwPVFNLP21g3EQhX5ynDjMyE+togwh+IAT9W0Brc8G0t8eYeFKTMjyG0YhtXZVgtixcjuyC1/is0j4uW6MXzqM17nz2YkBD/mJSnGadaFXNTiMLoPv0EpeKt+dMzjN7+x7+ILeblBg1wVFQz5t1S+KLcEm7JUqemMKg5hx56xXxcdFnnWUteRaZ676UpsN048LZD49EHUb2AV0rE0w6PVpD+F9nJV7y57vA"
     }
