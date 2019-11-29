@@ -5,14 +5,18 @@ import org.mechdancer.ftc.unitedbot.robot.UnitedBotArgs.LIFT_RIGHT_POSITION_PID
 import org.mechdancer.ftclib.core.structure.composite.AbstractStructure
 import org.mechdancer.ftclib.core.structure.injector.delegate
 import org.mechdancer.ftclib.core.structure.monomeric.MotorWithEncoder
+import org.mechdancer.ftclib.core.structure.monomeric.effector.Motor
 import org.mechdancer.ftclib.core.structure.monomeric.motorWithEncoder
 
 class Lift : AbstractStructure("lift",{
     motorWithEncoder("right"){
-        cpr=MotorWithEncoder.CPR.Matrix12V
+        cpr = -MotorWithEncoder.CPR.Matrix12V
+
+
     }
-    motorWithEncoder("lift"){
-        cpr=MotorWithEncoder.CPR.Matrix12V
+    motorWithEncoder("left") {
+        cpr = -MotorWithEncoder.CPR.Matrix12V
+        direction = Motor.Direction.REVERSE
     }
 }){
     val left: MotorWithEncoder by delegate()
@@ -32,17 +36,19 @@ class Lift : AbstractStructure("lift",{
             if (!positionSign){
                 rTargetPosition=right.position
                 lTargetPosition=left.position
+                positionSign = true
 
             }
             else{
-                LIFT_RIGHT_POSITION_PID.core(rTargetPosition-right.position)
-                LIFT_LEFT_POSITION_PID.core(lTargetPosition-left.position)
+                LIFT_RIGHT_POSITION_PID(rTargetPosition - right.position)
+                LIFT_LEFT_POSITION_PID(lTargetPosition - left.position)
             }
 
 
         }else{
             right.power=targetPower
             left.power=targetPower
+            positionSign = false
         }
 
 
