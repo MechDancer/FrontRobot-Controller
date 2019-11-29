@@ -12,6 +12,7 @@ class Arm : AbstractStructure("arm", {
         enable = true
     }
     motor("right") {
+        direction=Motor.Direction.REVERSE
         enable = true
     }
 }), Resettable {
