@@ -6,7 +6,8 @@
             <Matrix12vMotor name="chassis.LB" port="1" />
             <Matrix12vMotor name="chassis.RF" port="2" />
             <Matrix12vMotor name="chassis.RB" port="3" />
-            <Servo name="clamp.servo" port="0" />
+            <Servo name="hook.servo" port="0" />
+            <ContinuousRotationServo name="clamp.cr" port="1" />
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
         </LynxModule>
         <LynxModule name="Expansion Hub 10" port="10">

@@ -2,6 +2,7 @@ package org.mechdancer.common.ftc
 
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil
 import org.mechdancer.algebra.core.Vector
 import org.mechdancer.algebra.implement.matrix.builder.matrix
 import org.mechdancer.algebra.implement.vector.toListVector
@@ -32,3 +33,5 @@ fun StateMachine.withTime(time: Long): StateMachine {
     val delay = Delay(time)
     return this * delay
 }
+
+inline fun<reified T> systemService(name:String)=AppUtil.getDefContext().getSystemService(name) as T

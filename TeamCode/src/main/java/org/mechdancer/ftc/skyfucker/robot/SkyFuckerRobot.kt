@@ -11,7 +11,7 @@ class SkyFuckerRobot : Robot("skyfucker", Mecanum(
         lbMotorDirection = Motor.Direction.REVERSE,
         rfMotorDirection = Motor.Direction.REVERSE,
         rbMotorDirection = Motor.Direction.REVERSE
-        ), Arm(), Clamp()) {
+        ), Arm(), Clamp(),Hook()) {
 
     @Inject
     lateinit var chassis: Mecanum
@@ -21,5 +21,8 @@ class SkyFuckerRobot : Robot("skyfucker", Mecanum(
 
     @Inject
     lateinit var clamp: Clamp
+
+    @Inject
+    lateinit var hook: Hook
 
 }
