@@ -11,12 +11,14 @@ import org.mechdancer.ftclib.core.structure.monomeric.motorWithEncoder
 class Lift : AbstractStructure("lift",{
     motorWithEncoder("right"){
         cpr = -MotorWithEncoder.CPR.Matrix12V
+        enable = true
 
 
     }
     motorWithEncoder("left") {
         cpr = -MotorWithEncoder.CPR.Matrix12V
         direction = Motor.Direction.REVERSE
+        enable = true
     }
 }){
     val left: MotorWithEncoder by delegate()
@@ -40,8 +42,8 @@ class Lift : AbstractStructure("lift",{
 
             }
             else{
-                LIFT_RIGHT_POSITION_PID(rTargetPosition - right.position)
-                LIFT_LEFT_POSITION_PID(lTargetPosition - left.position)
+                right.power = LIFT_RIGHT_POSITION_PID(rTargetPosition - right.position)
+                left.power = LIFT_LEFT_POSITION_PID(lTargetPosition - left.position)
             }
 
 

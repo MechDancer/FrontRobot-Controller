@@ -8,6 +8,7 @@ import org.mechdancer.ftclib.core.structure.monomeric.motorWithEncoder
 class Sucker : AbstractStructure("sucker", {
     motorWithEncoder("motor") {
         cpr = MotorWithEncoder.CPR.Matrix12V
+        enable = true
     }
 }) {
     val motor: MotorWithEncoder by delegate()

@@ -14,4 +14,7 @@ object UnitedBotArgs {
 
     const val PULL_LEFT_RELEASE = .0
     const val PULL_LEFT_FASTEN = .0
+
+    const val CLAMP_FASTEN = .0
+    const val CLAMP_RELEASE = .0
 }
