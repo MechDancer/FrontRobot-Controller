@@ -1,5 +1,6 @@
 package org.mechdancer.ftc.unitedbot.opmoedes
 
+import org.mechdancer.ftc.unitedbot.robot.Arm
 import org.mechdancer.ftc.unitedbot.robot.UnitedBot
 import org.mechdancer.ftclib.core.opmode.RemoteControlOpMode
 import org.mechdancer.ftclib.core.structure.monomeric.effector.Motor
@@ -39,6 +40,12 @@ class UnitedBotTeleop : RemoteControlOpMode<UnitedBot>() {
             helper.b.bePressed() -> robot.sucker.motor.power = -1.0
             else                 -> robot.sucker.motor.power = .0
         }
+
+        if(helper.x.bePressed())
+            robot.arm.clampState=Arm.State.Fasten
+
+        if(helper.y.bePressed())
+            robot.arm.clampState=Arm.State.Release
 
 
 

@@ -13,8 +13,9 @@ class Test : OpMode() {
     lateinit var servo:Servo
     val target = RemoteDouble(1)
 
+    var aaa:RemoteDouble=RemoteDouble(1)
     override fun init() {
-        servo=hardwareMap.servo["hook.servo"]
+        servo=hardwareMap.servo["arm.clamp"]
     }
 
     override fun loop() {
