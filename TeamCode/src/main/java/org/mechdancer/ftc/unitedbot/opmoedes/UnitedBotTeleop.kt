@@ -2,14 +2,13 @@ package org.mechdancer.ftc.unitedbot.opmoedes
 
 import org.mechdancer.ftc.unitedbot.robot.Arm
 import org.mechdancer.ftc.unitedbot.robot.UnitedBot
+import org.mechdancer.ftclib.classfilter.Naming
 import org.mechdancer.ftclib.core.opmode.RemoteControlOpMode
 import org.mechdancer.ftclib.core.structure.monomeric.effector.Motor
 import org.mechdancer.ftclib.gamepad.Gamepad
 
+@Naming("联合遥控")
 class UnitedBotTeleop : RemoteControlOpMode<UnitedBot>() {
-
-
-
 
 
     override fun loop(master: Gamepad, helper: Gamepad) {
@@ -41,11 +40,11 @@ class UnitedBotTeleop : RemoteControlOpMode<UnitedBot>() {
             else                 -> robot.sucker.motor.power = .0
         }
 
-        if(helper.x.bePressed())
-            robot.arm.clampState=Arm.State.Fasten
+        if (helper.x.bePressed())
+            robot.arm.clampState = Arm.State.Fasten
 
-        if(helper.y.bePressed())
-            robot.arm.clampState=Arm.State.Release
+        if (helper.y.bePressed())
+            robot.arm.clampState = Arm.State.Release
 
 
 

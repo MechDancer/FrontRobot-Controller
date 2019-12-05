@@ -4,9 +4,11 @@ import org.mechdancer.common.ftc.Gyro
 import org.mechdancer.ftc.skyfucker.robot.SkyFuckerArgs
 import org.mechdancer.ftc.skyfucker.robot.SkyFuckerRobot
 import org.mechdancer.ftclib.algorithm.*
+import org.mechdancer.ftclib.classfilter.Naming
 import org.mechdancer.ftclib.core.opmode.async.BaseOpModeAsync
 import kotlin.math.abs
 
+@Naming("日天者自动")
 class SkyFuckerAuto : BaseOpModeAsync<SkyFuckerRobot>() {
     init {
         initTask.add {
@@ -22,7 +24,7 @@ class SkyFuckerAuto : BaseOpModeAsync<SkyFuckerRobot>() {
     override val afterStopMachine: StateMachine = { NEXT }
     override val initLoopMachine: StateMachine = { NEXT }
     override val loopMachine: StateMachine =
-            LinearStateMachine()
+        LinearStateMachine()
 
     /**
      * 红方
@@ -34,29 +36,29 @@ class SkyFuckerAuto : BaseOpModeAsync<SkyFuckerRobot>() {
     // 无事发生
     //------------------------------------------------------------------------------------------------
     private fun move(x: Double, y: Double, w: Double, delay: Long) =
-            LinearStateMachine()
-                    .add {
-                        robot.chassis.descartes {
-                            this.x = x
-                            this.y = y
-                            this.w = w
-                        }
-                        NEXT
-                    }
-                    .add(Delay(delay))
-                    .add(stopChassis)
+        LinearStateMachine()
+            .add {
+                robot.chassis.descartes {
+                    this.x = x
+                    this.y = y
+                    this.w = w
+                }
+                NEXT
+            }
+            .add(Delay(delay))
+            .add(stopChassis)
 
     private var rCounter = Counter(200L)
     private fun rotation(r: Double) =
-            LinearStateMachine()
-                    .add {
-                        val error = r - Gyro.value[2]
-                        robot.chassis.descartes {
-                            w = SkyFuckerArgs.CHASSIS_W_PID_PROCESSION(error)
-                        }
-                        rCounter(abs(error) < .05)
-                    }
-                    .add(stopChassis)
+        LinearStateMachine()
+            .add {
+                val error = r - Gyro.value[2]
+                robot.chassis.descartes {
+                    w = SkyFuckerArgs.CHASSIS_W_PID_PROCESSION(error)
+                }
+                rCounter(abs(error) < .05)
+            }
+            .add(stopChassis)
 
     private val stopChassis = {
         robot.chassis.descartes {

@@ -8,7 +8,7 @@ import org.mechdancer.ftclib.classfilter.Naming
 import org.mechdancer.ftclib.core.opmode.RemoteControlOpMode
 import org.mechdancer.ftclib.gamepad.Gamepad
 
-@Naming("日天者")
+@Naming("日天者遥控")
 class SkyFuckerTeleOp : RemoteControlOpMode<SkyFuckerRobot>() {
     override fun initTask() {
 

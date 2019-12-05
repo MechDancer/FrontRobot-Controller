@@ -6,9 +6,11 @@ import org.mechdancer.ftc.unicorn.robot.Slider
 import org.mechdancer.ftc.unicorn.robot.UnicornRobot
 import org.mechdancer.ftclib.algorithm.FINISH
 import org.mechdancer.ftclib.algorithm.StateMachine
+import org.mechdancer.ftclib.classfilter.Naming
 import org.mechdancer.ftclib.core.opmode.async.RemoteControlOpModeAsync
 import org.mechdancer.ftclib.gamepad.Gamepad
 
+@Naming("独角兽遥控")
 class UnicornTeleop : RemoteControlOpModeAsync<UnicornRobot>() {
 
     override val afterStopMachine: StateMachine = { FINISH }
